@@ -2,6 +2,9 @@ import express from "express";
 import connectDb from "./src/db/index.js";
 import { app } from "./app.js";
 import { User } from "./src/models/user.models.js";
+import dotenv from "dotenv";
+dotenv.config(); 
+
 
 // const app = express();
 const regUser = async (req, res) => {
