@@ -1,39 +1,44 @@
 import mongoose from "mongoose";
-import { Schema } from "mongoose";
+const { Schema } = mongoose;
 
 const userSchema = new Schema(
   {
     username: {
       type: String,
       required: true,
-      unique:true,
+      unique: true,
     },
     fullname: {
       type: String,
     },
     password: {
       type: String,
-      required:[true,"Password is Required"]
+      required: [true, "Password is required"],
     },
     email: {
       type: String,
-      unique:true,
+      unique: true,
     },
     dob: {
-      type: String,
-      
+      type: Date,
     },
     avatar: {
       type: String,
-      required:false,
     },
-    date: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref:"Date"
-    }
-    
+    tasksModifiedCount: {
+      type: Number,
+      default: 0,
+    },
+    lastModifiedReset: {
+      type: Date,
+      default: Date.now,
+    },
+    settings: {
+      preferredStartHour: { type: Number, default: 4 }, // 4 AM day start
+      notificationsEnabled: { type: Boolean, default: true },
+    },
   },
-  {timestamps:true}
-)
+  { timestamps: true }
+);
 
-export const User=mongoose.model("User",userSchema)
+export const User = mongoose.model("User", userSchema);

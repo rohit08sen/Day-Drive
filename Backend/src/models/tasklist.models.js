@@ -1,22 +1,32 @@
 import mongoose from "mongoose";
+const { Schema } = mongoose;
 
-const taskListSchema = new mongoose.Schema({
-  percentageCompleted: {
-    type: Number,
-    required: false,
-  },
-
-  tasks: [
-    {
+const taskListSchema = new Schema(
+  {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "task",
+      ref: "User",
+      required: true,
     },
-  ],
-
-  date: {
-    type: Date.now,
-    required: true,
+    tasks: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Task",
+      },
+    ],
+    percentageCompleted: {
+      type: Number,
+      default: 0,
+    },
+    date: {
+      type: Date,
+      required: true,
+    },
   },
-});
+  { timestamps: true }
+);
 
-module.exports = mongoose.model("TaskList", taskListSchema);
+// Ensure only one TaskList per user per day
+taskListSchema.index({ user: 1, date: 1 }, { unique: true });
+
+export const TaskList = mongoose.model("TaskList", taskListSchema);
