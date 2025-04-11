@@ -1,33 +1,26 @@
 import express from "express";
-import connectDb from "./src/db/index.js";
+import connectDb from "./src/config/database.js";
 import { app } from "./app.js";
 import { User } from "./src/models/user.models.js";
+import { signUp, signIn } from "./src/controllers/user.js";
+import cookieParser from "cookie-parser";
+import userRoutes from "./src/routes/user.js";
 import dotenv from "dotenv";
 dotenv.config(); 
 
+app.use(cookieParser());
 
-// const app = express();
-const regUser = async (req, res) => {
-  const { username, email, password  ,fullname, dob, avatar} = req.body;
-  console.log("email:", email);
-  console.log("req files", req.files);
-  console.log("Recieved req body:", req.body);
 
-  const ruser = await User.create({
-    fullname,
-    email,
-    password,
-    username,
-    dob,
-    avatar,
-  });
-  console.log(ruser);
-  return res.json(201, " created  : function completed");
-};
-app.post("/user", regUser);
+app.use("/api/v1/user", userRoutes);
+
+app.get("/", (req,res)=>{
+  res.send("Server is running...");
+});
 
 connectDb().then(() => {
   app.listen(3000, () => {
     console.log("App is running on http://localhost:3000");
   });
 });
+
+
