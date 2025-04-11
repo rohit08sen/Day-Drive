@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const { Schema } = mongoose;
+import { Schema } from "mongoose";
 
 const userSchema = new Schema(
   {
@@ -19,13 +19,10 @@ const userSchema = new Schema(
       type: String,
       unique: true,
     },
-    dob: {
-      type: Date,
-    },
     avatar: {
       type: String,
     },
-    tasksModifiedCount: {
+    lifelineCount: {
       type: Number,
       default: 0,
     },
@@ -35,8 +32,10 @@ const userSchema = new Schema(
     },
     settings: {
       preferredStartHour: { type: Number, default: 4 }, // 4 AM day start
-      notificationsEnabled: { type: Boolean, default: true },
     },
+    token: {
+      type: String,
+    }
   },
   { timestamps: true }
 );
