@@ -5,6 +5,8 @@ import { User } from "./src/models/user.models.js";
 import { signUp, signIn } from "./src/controllers/user.js";
 import cookieParser from "cookie-parser";
 import userRoutes from "./src/routes/user.js";
+import dotenv from "dotenv";
+dotenv.config(); 
 
 app.use(cookieParser());
 
