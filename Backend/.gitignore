@@ -81,6 +81,8 @@ web_modules/
 .cache
 .parcel-cache
 package-lock.json
+package-lock.json
+
 # Next.js build output
 .next
 out
